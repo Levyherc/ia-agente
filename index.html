@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS Next IA - Assistente Virtual Inteligente</title>
+    <meta name="description" content="Assistente virtual especializado em LMS Next para esclarecer dúvidas e fornecer suporte especializado sobre o uso da plataforma.">
+    
+    <!-- Chat CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    
+    <!-- Estilos customizados -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Inicializando chat...</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i data-lucide="bot" class="icon"></i>
+                        </div>
+                        <span>LMS Next IA</span>
+                    </div>
+                    <p class="subtitle">Assistente Virtual Inteligente</p>
+                </div>
+                
+                <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span id="statusText">Carregando...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-card">
+                    <div class="welcome-icon">
+                        <i data-lucide="sparkles" class="icon"></i>
+                    </div>
+                    
+                    <h1>Bem-vindo ao LMS Next IA</h1>
+                    <p>Seu assistente virtual especializado está pronto para ajudar! Esclareça dúvidas, obtenha suporte técnico e maximize o uso da plataforma LMS Next com nossa inteligência artificial avançada.</p>
+                    
+                    <!-- Features -->
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <i data-lucide="zap" class="feature-icon"></i>
+                            <span>Respostas Instantâneas</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="brain" class="feature-icon"></i>
+                            <span>IA Especializada</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="clock" class="feature-icon"></i>
+                            <span>Disponível 24/7</span>
+                        </div>
+                        <div class="feature-item">
+                            <i data-lucide="shield-check" class="feature-icon"></i>
+                            <span>Suporte Confiável</span>
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Section -->
+                    <div class="cta-section">
+
+                        <p class="cta-hint"><i data-lucide="message-circle" class="btn-icon"></i> Clique no botão flutuante ao lado para começar</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Help Section -->
+            <section class="quick-help">
+                <h2>Ajuda Rápida</h2>
+                <div class="help-grid">
+                    <div class="help-card" data-message="Plataforma com a identidade visual da sua empresa">
+                        <i data-lucide="layout" class="help-icon"></i>
+                        <h3>Identidade Visual</h3>
+                        <p>Plataforma personalizada com a identidade visual da sua empresa</p>
+                    </div>
+                    
+                    <div class="help-card" data-message="Mudar Layout da Página de Login">
+                        <i data-lucide="edit" class="help-icon"></i>
+                        <h3>Layout da Página de Login</h3>
+                        <p>Aprenda a alterar e personalizar a página de login da plataforma</p>
+                    </div>
+                    
+                    <div class="help-card" data-message="H5P - Vídeo interativo">
+                        <i data-lucide="video" class="help-icon"></i>
+                        <h3>H5P - Vídeo Interativo</h3>
+                        <p>Como criar vídeos interativos utilizando o H5P na plataforma</p>
+                    </div>
+                    
+                    <div class="help-card" data-message="Guia LMS Next">
+                        <i data-lucide="book-open" class="help-icon"></i>
+                        <h3>Guia LMS Next</h3>
+                        <p>Consultas rápidas e tutoriais sobre todas as funcionalidades do LMS Next</p>
+                    </div>
+                    
+                    <div class="help-card" data-message="Como inserir uma imagem de capa na categoria">
+                        <i data-lucide="image" class="help-icon"></i>
+                        <h3>Imagem de Capa</h3>
+                        <p>Aprenda a adicionar uma imagem de capa em qualquer categoria da plataforma</p>
+                    </div>
+                    
+                    <div class="help-card" data-message="A biblioteca de Arquivos na Plataforma - Organização e Acesso Simplificado">
+                        <i data-lucide="archive" class="help-icon"></i>
+                        <h3>Biblioteca de Arquivos</h3>
+                        <p>Organização e acesso simplificado aos arquivos dentro da plataforma</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 LMS Next IA. Powered by Artificial Intelligence.</p>
+        </footer>
+    </div>
+
+    <!-- Customização do chat via variáveis CSS -->
+    <style>
+        :root {
+            --chat--color-primary: #003EF0;
+            --chat--color-primary-shade-50: #6284CC;
+            --chat--color-secondary: #20b69e;
+            --chat--color-white: #ffffff;
+            --chat--color-light: #f2f4f8;
+            --chat--color-dark: #283AEB;
+
+            --chat--window--width: 450px;
+            --chat--window--height: 600px;
+            --chat--border-radius: 0.5rem;
+            --chat--spacing: 1rem;
+
+            --chat--header--background: var(--chat--color-dark);
+            --chat--header--color: var(--chat--color-white);
+
+            --chat--toggle--background: var(--chat--color-primary);
+            --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+            --chat--toggle--active--background: #003EF0;
+            --chat--toggle--color: var(--chat--color-white);
+            --chat--toggle--size: 64px;
+        }
+    </style>
+
+    <!-- Chat Integration Script -->
+    <script type="module">
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        createChat({
+            webhookUrl: 'meu-link', // SUBSTITUA PELO SEU WEBHOOK URL
+            mode: 'floating',
+            floating: true,
+            showWelcomeScreen: false,
+            chatInputKey: 'chatInput',
+            chatSessionKey: 'sessionId',
+            metadata: {},
+            defaultLanguage: 'en',
+            initialMessages: [
+                'Olá, sou o LMS Next IA.',
+                'Para iniciarmos, por favor, me informe seu **nome e email...**'
+            ],
+            i18n: {
+                en: {
+                    title: 'Especialista LMS Next! 🤖',
+                    subtitle: "Pergunte o que quiser sobre o LMS Next!",
+                    footer: '',
+                    getStarted: 'New Conversation',
+                    inputPlaceholder: 'Type your question..',
+                }
+            },
+            enableStreaming: false
+        });
+    </script>
+
+    <!-- Scripts personalizados -->
+    <script src="scrips.js"></script>
+</body>
+</html>
