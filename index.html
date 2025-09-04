@@ -193,6 +193,65 @@
             enableStreaming: false
         });
     </script>
+    <script type="text/javascript">
+var manageruser = document.querySelectorAll('[data-key="manager_users"]');
+
+if(manageruser.length == 0){
+// <![CDATA[
+var ttChatLoaderS = document.createElement('script');
+document.tomticketChatLoaderScriptVersion = 2;
+ttChatLoaderS.src = 'https://skill.tomticket.com/scripts-chat/chat.min.js'
++ '?id=EP13141'
++ '&autoOpen=0'
++ '&hideWhenOffline=0'
++ '&d=skill'
++ '&ts=' + new Date().getTime()
++ '&ref=' + encodeURIComponent(document.URL);
+document.body.appendChild(ttChatLoaderS);
+//]]>
+}
+</script>            
+<script>
+   var listCompetency = null;
+            listCompetency= document.querySelector("select[data-field=ruleoutcome]");
+            
+            if(listCompetency == null){
+            listCompetency= document.querySelector("#id_competency_rule");
+            }
+            
+            if(listCompetency != null){
+            //listCompetency.innerHTML = "";
+            //listCompetency.innerHTML = "<option value='3' selected>Concluir a competência</option>";
+            }
+</script>
+    
+<script>
+  var dashboardmenu = document.querySelectorAll("[data-key='next_dashboard_nextuser']")
+if(dashboardmenu.length === 0){
+	console.log('isnt admin next');
+}else{
+	var adminmenu = document.querySelector("a[data-key='sitesettings']");
+
+	adminmenu.style.display = "none";
+}
+</script>
+<script>
+window.onload = function(){
+var filters = $('#page-report-progress-index .page-link');
+$.map(filters, function(val, i){
+var link= $(val).attr('href');
+if(link){
+var params = $(val).attr('href').split('&');
+for(var i =0; i < params.length;i++){
+if(params[i].indexOf('start=') > -1){
+var n = link.replace(params[i], '');
+$(val).attr('href', n);
+}
+}
+}
+});
+}
+</script>
 
     <!-- Scripts personalizados -->
     <script src="scrips.js"></script>
