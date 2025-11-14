@@ -165,23 +165,37 @@
         }
 
         /*CÓDIGO ALTERADO*/
-        /* Remove o texto original do título */
-        .n8n-chat-header-title {
-        display: none !important;
-        }
+            .n8n-chat-header-title {
+            /* Garante que o container do título ocupe 100% da largura disponível */
+            width: 100%;
+            /* Centraliza verticalmente o título e subtítulo se necessário */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2px; /* Espaçamento entre título e subtítulo */
+            }
 
-        /* Insere a imagem no header */
-        .n8n-chat-header::before {
-        content: "";
-        display: block;
-        width: 38px;
-        height: 38px;
-        background-image: url('https://i.postimg.cc/rwRJWxjB/chat_ia_1.png');
-        background-size: cover;
-        background-position: center;
-        border-radius: 6px;
-        margin-right: 10px;
-        }
+            .n8n-chat-header-title > h1 {
+            /* Estiliza o título principal */
+            font-size: 1.15rem; /* Um pouco maior */
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+            }
+
+            .n8n-chat-header-title > p {
+            /* Estiliza o subtítulo */
+            font-size: 0.85rem; /* Um pouco menor */
+            font-weight: 400;
+            margin: 0;
+            opacity: 0.8;
+            }
+
+            /* Remove o ícone que aparece ao lado do texto, se houver */
+            .n8n-chat-header-icon {
+            display: none !important;
+            }
         
     </style>
 
@@ -203,13 +217,20 @@
                 'Para iniciarmos, por favor, me informe seu **nome e email...**'
             ],
             i18n: {
-                en: {
+                'pt-BR': {
                     title: 'Especialista LMS Next! 🤖',
                     subtitle: "Pergunte o que quiser sobre o LMS Next!",
                     footer: '',
-                    getStarted: 'New Conversation',
-                    inputPlaceholder: 'Type your question..',
-                }
+                    getStarted: 'Nova Conversa',
+                    inputPlaceholder: 'Digite sua pergunta..',
+                },
+                  en: {
+                    title: 'Especialista LMS Next! 🤖',
+                    subtitle: "Pergunte o que quiser sobre o LMS Next!",
+                    footer: '',
+                    getStarted: 'New Conversation',
+                    inputPlaceholder: 'Type your question..',
+                    }  
             },
             enableStreaming: false
         });
