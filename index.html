@@ -137,6 +137,7 @@
             <p>&copy; LMS Next IA. Powered by Artificial Intelligence - Em teste (desenvolvendo).</p>
         </footer>
     </div>
+    
     <!-- N8N INICIO -->
     <!-- Customização do chat via variáveis CSS -->
     <style>
@@ -212,8 +213,21 @@
             },
             enableStreaming: false
         });
+
+        /*SCRIPT PARA GARANTIR QUE A IMAGEM APAREÇA NO HEADER*/
+        
+        const checkHeader = setInterval(() => {
+        const header = document.querySelector(".n8n-chat-header");
+
+        if (header) {
+            header.classList.add("custom-chat-header");
+            clearInterval(checkHeader);
+        }
+        }, 300)
+
     </script>
 <!-- N8N FIM -->    
+    
 <script>
    var listCompetency = null;
             listCompetency= document.querySelector("select[data-field=ruleoutcome]");
