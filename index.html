@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Teste n8n Chat</title>
     <style>
-        /* CSS fornecido */
         :root {
             --chat--color--primary: #e74266;
             --chat--color--primary-shade-50: #db4061;
@@ -59,20 +58,18 @@
     </style>
 </head>
 <body>
-    <h1>Teste do Chat n8n</h1>
-    <p>Clique no botão do chat (se configurado) ou aguarde o carregamento da janela.</p>
 
-    <!-- Elemento onde o chat será carregado -->
+    <h1>Teste do Chat n8n</h1>
     <div id="n8n-chat"></div>
 
-    <!-- Script de inicialização -->
+    <!-- Carregar o script DO CHAT ANTES -->
+    <script src="https://cdn.jsdelivr.net/gh/n8n-io/n8n-chat/dist/index.min.js"></script>
+
+    <!-- Agora pode chamar createChat() -->
     <script>
         createChat({
             webhookUrl: 'https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat',
-            webhookConfig: {
-                method: 'POST',
-                headers: {}
-            },
+            webhookConfig: { method: 'POST', headers: {} },
             target: '#n8n-chat',
             mode: 'window',
             chatInputKey: 'chatInput',
@@ -92,14 +89,11 @@
                     footer: '',
                     getStarted: 'New Conversation',
                     inputPlaceholder: 'Type your question..',
-                },
+                }
             },
             enableStreaming: false,
         });
     </script>
 
-    <!-- Script fictício: substitua pelo script real do n8n chat -->
-    <script src="https://cdn.jsdelivr.net/gh/n8n-io/n8n-chat/dist/index.min.js"></script>
 </body>
 </html>
-
