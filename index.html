@@ -138,74 +138,8 @@
         </footer>
     </div>
 
-    <!-- Customização do chat via variáveis CSS -->
-<style>
-      :root {
-        --chat--color-primary: #003EF0;
-        --chat--color-primary-shade-50: #6284CC;
-        --chat--color-secondary: #20b69e;
-        --chat--color-white: #ffffff;
-        --chat--color-light: #f2f4f8;
-        --chat--color-dark: #283AEB;
+<!-- Customização do chat via variáveis CSS -->
 
-        --chat--window--width: 450px;
-        --chat--window--height: 600px;
-        --chat--border-radius: 0.5rem;
-        --chat--spacing: 1rem;
-
-        --chat--header--background: var(--chat--color-dark);
-        --chat--header--color: var(--chat--color-white);
-
-        --chat--toggle--background: var(--chat--color-primary);
-        --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
-        --chat--toggle--active--background: #003EF0;
-        --chat--toggle--color: var(--chat--color-white);
-        --chat--toggle--size: 64px;
-      }
-
-      /* Avatar personalizado no cabeçalho do chat */
-      .n8n-chat__header::before {
-        content: "";
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        margin-right: 10px;
-        background-image: url("https://i.postimg.cc/rwRJWxjB/chat_ia_1.png");
-        background-size: cover;
-        background-position: center;
-        display: inline-block;
-      }
-    </style>
-
-    <!-- Script do Chat N8N -->
-    <script type="module">
-      import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/webchat.bundle.js";
-
-      createChat({
-        webhookUrl: "https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat",
-        mode: "floating",
-        showWelcomeScreen: false,
-        chatInputKey: "chatInput",
-        chatSessionKey: "sessionId",
-
-        initialMessages: [
-          "Olá, sou o LMS Next IA.",
-          "Para iniciarmos, por favor, me informe seu **nome e email...**"
-        ],
-
-        i18n: {
-          en: {
-            title: "Especialista LMS Next!",
-            subtitle: "Pergunte o que quiser sobre o LMS Next!",
-            footer: "",
-            getStarted: "New Conversation",
-            inputPlaceholder: "Type your question...",
-          }
-        },
-
-        enableStreaming: false
-      });
-    </script>
 
  <!-- FIM Chat Integration Script --> 
            
