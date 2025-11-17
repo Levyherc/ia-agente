@@ -139,114 +139,127 @@
     </div>
     
     <!-- N8N INICIO -->
-    <!-- Customização do chat via variáveis CSS -->
-    <style>
-        :root {
-            --chat--color-primary: #003EF0;
-            --chat--color-primary-shade-50: #6284CC;
-            --chat--color-secondary: #20b69e;
-            --chat--color-white: #ffffff;
-            --chat--color-light: #f2f4f8;
-            --chat--color-dark: #283AEB;
-
-            --chat--window--width: 450px;
-            --chat--window--height: 600px;
-            --chat--border-radius: 0.5rem;
-            --chat--spacing: 1rem;
-
-            --chat--header--background: var(--chat--color-dark);
-            --chat--header--color: var(--chat--color-white);
-
-            --chat--toggle--background: var(--chat--color-primary);
-            --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
-            --chat--toggle--active--background: #003EF0;
-            --chat--toggle--color: var(--chat--color-white);
-            --chat--toggle--size: 64px;
-        }
-
-        /*CÓDIGO ALTERADO*/
-            .n8n-chat-header-title {
-            /* Garante que o container do título ocupe 100% da largura disponível */
-            width: 100%;
-            /* Centraliza verticalmente o título e subtítulo se necessário */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 2px; /* Espaçamento entre título e subtítulo */
-            }
-
-            .n8n-chat-header-title > h1 {
-            /* Estiliza o título principal */
-            font-size: 1.15rem; /* Um pouco maior */
-            font-weight: 700;
-            margin: 0;
-            line-height: 1.2;
-            }
-
-            .n8n-chat-header-title > p {
-            /* Estiliza o subtítulo */
-            font-size: 0.85rem; /* Um pouco menor */
-            font-weight: 400;
-            margin: 0;
-            opacity: 0.8;
-            }
-
-            /* Remove o ícone que aparece ao lado do texto, se houver */
-            .n8n-chat-header-icon {
-            display: none !important;
-            }
+<style>
+    /* O bloco :root define variáveis CSS que controlam cores, tamanhos e estilo do chat. */
+    :root {
+        /* Cores Primárias e Secundárias do Chat */
+        --chat--color-primary: #003EF0;
+        --chat--color-primary-shade-50: #6284CC;
+        --chat--color-secondary: #20b69e;
         
-    </style>
+        /* Cores base */
+        --chat--color-white: #ffffff;
+        --chat--color-light: #f2f4f8;
+        --chat--color-dark: #283AEB;
 
-    <!-- Chat Integration Script -->
-    <script type="module">
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+        /* Dimensões da Janela do Chat (quando aberta) */
+        --chat--window--width: 450px;
+        --chat--window--height: 600px;
+        --chat--border-radius: 0.5rem;
+        --chat--spacing: 1rem;
 
-        createChat({
-            webhookUrl: 'https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat',
-            mode: 'floating',
-            floating: true,
-            showWelcomeScreen: false,
-            chatInputKey: 'chatInput',
-            chatSessionKey: 'sessionId',
-            metadata: {},
-            defaultLanguage: 'en',
-            initialMessages: [
-                'Olá, sou o LMS Next IA.',
-                'Para iniciarmos, por favor, me informe seu **nome e email...**'
-            ],
-            i18n: {
-                'pt-BR': {
-                    title: 'Especialista LMS Next! 🤖',
-                    subtitle: "Pergunte o que quiser sobre o LMS Next!",
-                    footer: '',
-                    getStarted: 'Nova Conversa',
-                    inputPlaceholder: 'Digite sua pergunta..',
-                },
-                  en: {
-                    title: 'Especialista LMS Next! 🤖',
-                    subtitle: "Pergunte o que quiser sobre o LMS Next!",
-                    footer: '',
-                    getStarted: 'New Conversation',
-                    inputPlaceholder: 'Type your question..',
-                    }  
+        /* Estilo do Cabeçalho da Janela do Chat */
+        --chat--header--background: var(--chat--color-dark);
+        --chat--header--color: var(--chat--color-white);
+        
+        /* 💡 Insira AQUI a URL do seu Ícone/Avatar para o Cabeçalho */
+        --chat--header--icon: url('SUA_URL_DA_IMAGEM_AQUI.png');
+
+        /* Estilo do Botão Flutuante (Toggle) */
+        --chat--toggle--background: var(--chat--color-primary);
+        --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+        --chat--toggle--active--background: #003EF0;
+        --chat--toggle--color: var(--chat--color-white);
+        --chat--toggle--size: 64px;
+    }
+
+    /* Estilização para formatar o título e subtítulo verticalmente no cabeçalho */
+    .n8n-chat-header-title {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .n8n-chat-header-title > h1 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .n8n-chat-header-title > p {
+        font-size: 0.85rem;
+        font-weight: 400;
+        margin: 0;
+        opacity: 0.8;
+    }
+        
+</style>
+
+<script type="module">
+    /* Importa a função createChat do CDN do pacote oficial @n8n/chat */
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+    /* Inicializa o widget de chat com suas configurações customizadas */
+    createChat({
+        /* URL do webhook que dispara o workflow no seu servidor n8n */
+        webhookUrl: 'https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat',
+        
+        /* Define o modo de exibição como botão flutuante */
+        mode: 'floating',
+        floating: true, 
+        
+        /* Desativa a tela de "Boas-vindas" padrão */
+        showWelcomeScreen: false,
+        
+        /* Chaves para gerenciamento de estado da sessão */
+        chatInputKey: 'chatInput',
+        chatSessionKey: 'sessionId',
+        metadata: {},
+        defaultLanguage: 'en', 
+        
+        /* Mensagens que aparecem na tela de chat assim que é aberta */
+        initialMessages: [
+            'Olá, sou o **LMS Next IA**, seu especialista em EAD!',
+            'Como posso te ajudar hoje? Se precisar de ajuda com acesso ou informações de conta, me informe seu **nome e email**.'
+        ],
+        
+        /* Configurações de Internacionalização (Textos) */
+        i18n: {
+            'pt-BR': {
+                title: 'Especialista LMS Next! 🤖',
+                subtitle: "Pergunte o que quiser sobre o LMS Next!",
+                footer: '',
+                getStarted: 'Nova Conversa',
+                inputPlaceholder: 'Digite sua pergunta..',
             },
-            enableStreaming: false
-        });
-
-        /*SCRIPT PARA GARANTIR QUE A IMAGEM APAREÇA NO HEADER*/
+            en: {
+                title: 'Especialista LMS Next! 🤖',
+                subtitle: "Pergunte o que quiser sobre o LMS Next!",
+                footer: '',
+                getStarted: 'New Conversation',
+                inputPlaceholder: 'Type your question..',
+            }  
+        },
         
-        const checkHeader = setInterval(() => {
+        /* Desativa o streaming (resposta em tempo real) */
+        enableStreaming: false 
+    });
+
+    /* Script de garantia para adicionar uma classe customizada ao cabeçalho (Opcional) */
+    const checkHeader = setInterval(() => {
         const header = document.querySelector(".n8n-chat-header");
 
         if (header) {
             header.classList.add("custom-chat-header");
             clearInterval(checkHeader);
         }
-        }, 300)
+    }, 300)
 
-    </script>
+</script>
 <!-- N8N FIM -->    
     
 <script>
