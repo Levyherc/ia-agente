@@ -23,134 +23,35 @@
     </div>
 
     <div class="container">
-        <header class="header">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo">
-                        <div class="logo-icon">
-                            <i data-lucide="bot" class="icon"></i>
-                        </div>
-                        <span>LMS Next IA</span>
-                    </div>
-                    <p class="subtitle">Assistente Virtual Inteligente</p>
-                </div>
-                
-                <div class="status-indicator">
-                    <div class="status-dot"></div>
-                    <span id="statusText">Carregando...</span>
-                </div>
-            </div>
-        </header>
-
-        <main class="main-content">
-            <section class="welcome-section">
-                <div class="welcome-card">
-                    <div class="welcome-icon">
-                        <i data-lucide="sparkles" class="icon"></i>
-                    </div>
-                    
-                    <h1>Bem-vindo ao LMS Next IA</h1>
-                    <p>Seu assistente virtual especializado está pronto para ajudar! Esclareça dúvidas, obtenha suporte técnico e maximize o uso da plataforma LMS Next com nossa inteligência artificial avançada.</p>
-                    
-                    <div class="features-grid">
-                        <div class="feature-item">
-                            <i data-lucide="zap" class="feature-icon"></i>
-                            <span>Respostas Instantâneas</span>
-                        </div>
-                        <div class="feature-item">
-                            <i data-lucide="brain" class="feature-icon"></i>
-                            <span>IA Especializada</span>
-                        </div>
-                        <div class="feature-item">
-                            <i data-lucide="clock" class="feature-icon"></i>
-                            <span>Disponível 24/7</span>
-                        </div>
-                        <div class="feature-item">
-                            <i data-lucide="shield-check" class="feature-icon"></i>
-                            <span>Suporte Confiável</span>
-                        </div>
-                    </div>
-                    
-                    <div class="cta-section">
-                        <p class="cta-hint"><i data-lucide="message-circle" class="btn-icon"></i> Clique no botão flutuante ao lado para começar</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="quick-help">
-                <h2>Ajuda Rápida</h2>
-                <div class="help-grid">
-                    <div class="help-card" data-message="Plataforma com a identidade visual da sua empresa">
-                        <i data-lucide="layout" class="help-icon"></i>
-                        <h3>Identidade Visual</h3>
-                        <p>Plataforma personalizada com a identidade visual da sua empresa</p>
-                    </div>
-                    
-                    <div class="help-card" data-message="Mudar Layout da Página de Login">
-                        <i data-lucide="edit" class="help-icon"></i>
-                        <h3>Layout da Página de Login</h3>
-                        <p>Aprenda a alterar e personalizar a página de login da plataforma</p>
-                    </div>
-                    
-                    <div class="help-card" data-message="H5P - Vídeo interativo">
-                        <i data-lucide="video" class="help-icon"></i>
-                        <h3>H5P - Vídeo Interativo</h3>
-                        <p>Como criar vídeos interativos utilizando o H5P na plataforma</p>
-                    </div>
-                    
-                    <div class="help-card" data-message="Guia LMS Next">
-                        <i data-lucide="book-open" class="help-icon"></i>
-                        <h3>Guia LMS Next</h3>
-                        <p>Consultas rápidas e tutoriais sobre todas as funcionalidades do LMS Next</p>
-                    </div>
-                    
-                    <div class="help-card" data-message="Como inserir uma imagem de capa na categoria">
-                        <i data-lucide="image" class="help-icon"></i>
-                        <h3>Imagem de Capa</h3>
-                        <p>Aprenda a adicionar uma imagem de capa em qualquer categoria da plataforma</p>
-                    </div>
-                    
-                    <div class="help-card" data-message="A biblioteca de Arquivos na Plataforma - Organização e Acesso Simplificado">
-                        <i data-lucide="archive" class="help-icon"></i>
-                        <h3>Biblioteca de Arquivos</h3>
-                        <p>Organização e acesso simplificado aos arquivos dentro da plataforma</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-
+        <header class="header">...</header>
+        <main class="main-content">...</main>
         <footer class="footer">
             <p>&copy; LMS Next IA. Powered by Artificial Intelligence - Em teste (desenvolvendo).</p>
         </footer>
     </div>
     
     <style>
-        /* O bloco :root define variáveis CSS que controlam cores, tamanhos e estilo do chat. */
+        /* Variáveis de Cores e Tamanhos */
         :root {
-            /* Cores Primárias e Secundárias do Chat */
             --chat--color-primary: #003EF0;
             --chat--color-primary-shade-50: #6284CC;
             --chat--color-secondary: #20b69e;
             
-            /* Cores base */
             --chat--color-white: #ffffff;
             --chat--color-light: #f2f4f8;
             --chat--color-dark: #283AEB;
 
-            /* Dimensões da Janela do Chat (quando aberta) */
             --chat--window--width: 450px;
             --chat--window--height: 600px;
             --chat--border-radius: 0.5rem;
             --chat--spacing: 1rem;
 
-            /* Estilo do Cabeçalho da Janela do Chat */
             --chat--header--background: var(--chat--color-dark);
             --chat--header--color: var(--chat--color-white);
             
             /* ✅ URL da Imagem/Avatar para o Cabeçalho */
             --chat--header--icon: url('https://i.postimg.cc/rwRJWxjB/chat_ia_1.png');
 
-            /* Estilo do Botão Flutuante (Toggle) */
             --chat--toggle--background: var(--chat--color-primary);
             --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
             --chat--toggle--active--background: #003EF0;
@@ -182,19 +83,25 @@
             opacity: 0.8;
         }
         
-        /* ❗ CORREÇÃO: Força a exibição e o uso da imagem no elemento do ícone */
+        /* ❗ SOLUÇÃO FINAL: Força a exibição da imagem, removendo conteúdos concorrentes */
         .n8n-chat-header-icon {
-            /* Força a visibilidade e o tamanho do container do ícone */
             display: block !important;
             width: 32px !important;
             height: 32px !important;
-            margin-right: 10px !important; /* Espaçamento à direita do ícone */
+            margin-right: 10px !important;
 
-            /* Aplica a imagem de fundo diretamente, garantindo a prioridade */
+            /* Sobrescreve e remove qualquer conteúdo padrão ou SVG */
+            content: '' !important;
+            background-image: none !important;
+
+            /* Aplica sua imagem de fundo com a mais alta prioridade */
             background-image: var(--chat--header--icon) !important;
-            background-size: contain !important; /* Ajusta a imagem para caber */
+            background-size: cover !important; 
             background-repeat: no-repeat !important;
             background-position: center !important;
+            
+            /* Deixa o ícone redondo */
+            border-radius: 50% !important; 
         }
             
     </style>
@@ -205,23 +112,15 @@
 
         /* Inicializa o widget de chat com suas configurações customizadas */
         createChat({
-            /* URL do webhook que dispara o workflow no seu servidor n8n */
             webhookUrl: 'https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat',
-            
-            /* Define o modo de exibição como botão flutuante */
             mode: 'floating',
             floating: true, 
-            
-            /* Desativa a tela de "Boas-vindas" padrão */
             showWelcomeScreen: false,
-            
-            /* Chaves para gerenciamento de estado da sessão */
             chatInputKey: 'chatInput',
             chatSessionKey: 'sessionId',
             metadata: {},
             defaultLanguage: 'en', 
             
-            /* Mensagens que aparecem na tela de chat assim que é aberta */
             initialMessages: [
                 'Olá, sou o **LMS Next IA**, seu especialista em EAD!',
                 'Como posso te ajudar hoje? Se precisar de ajuda com acesso ou informações de conta, me informe seu **nome e email**.'
@@ -241,11 +140,10 @@
                     subtitle: "Pergunte o que quiser sobre o LMS Next!",
                     footer: '',
                     getStarted: 'New Conversation',
-                    inputPlaceholder: 'Type your question..',
+                    inputPlaceholder: 'Digite sua pergunta..',
                 }  
             },
             
-            /* Desativa o streaming (resposta em tempo real) */
             enableStreaming: false 
         });
 
@@ -261,8 +159,7 @@
 
     </script>
     <script>
-    /* Este bloco de script parece ser para manipulação de elementos LMS/Moodle específicos
-       e foi mantido inalterado, pois não interfere no chat. */
+    /* Script de manipulação de elementos LMS/Moodle (mantido) */
     var listCompetency = null;
     listCompetency = document.querySelector("select[data-field=ruleoutcome]");
             
