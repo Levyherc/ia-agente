@@ -6,20 +6,15 @@
     <title>LMS Next IA - Assistente Virtual Inteligente</title>
     <meta name="description" content="Assistente virtual especializado em LMS Next para esclarecer dúvidas e fornecer suporte especializado sobre o uso da plataforma.">
     
-    <!-- Chat CSS -->
     <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
     
-    <!-- Estilos customizados -->
     <link rel="stylesheet" href="style.css">
     
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
-    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
         <div class="loading-content">
             <div class="loading-spinner"></div>
@@ -27,9 +22,7 @@
         </div>
     </div>
 
-    <!-- Main Container -->
     <div class="container">
-        <!-- Header -->
         <header class="header">
             <div class="header-content">
                 <div class="logo-section">
@@ -49,9 +42,7 @@
             </div>
         </header>
 
-        <!-- Main Content -->
         <main class="main-content">
-            <!-- Welcome Section -->
             <section class="welcome-section">
                 <div class="welcome-card">
                     <div class="welcome-icon">
@@ -61,7 +52,6 @@
                     <h1>Bem-vindo ao LMS Next IA</h1>
                     <p>Seu assistente virtual especializado está pronto para ajudar! Esclareça dúvidas, obtenha suporte técnico e maximize o uso da plataforma LMS Next com nossa inteligência artificial avançada.</p>
                     
-                    <!-- Features -->
                     <div class="features-grid">
                         <div class="feature-item">
                             <i data-lucide="zap" class="feature-icon"></i>
@@ -81,15 +71,12 @@
                         </div>
                     </div>
                     
-                    <!-- CTA Section -->
                     <div class="cta-section">
-
                         <p class="cta-hint"><i data-lucide="message-circle" class="btn-icon"></i> Clique no botão flutuante ao lado para começar</p>
                     </div>
                 </div>
             </section>
 
-            <!-- Quick Help Section -->
             <section class="quick-help">
                 <h2>Ajuda Rápida</h2>
                 <div class="help-grid">
@@ -132,151 +119,163 @@
             </section>
         </main>
 
-        <!-- Footer -->
         <footer class="footer">
             <p>&copy; LMS Next IA. Powered by Artificial Intelligence - Em teste (desenvolvendo).</p>
         </footer>
     </div>
     
-    <!-- N8N INICIO -->
-<style>
-    /* O bloco :root define variáveis CSS que controlam cores, tamanhos e estilo do chat. */
-    :root {
-        /* Cores Primárias e Secundárias do Chat */
-        --chat--color-primary: #003EF0;
-        --chat--color-primary-shade-50: #6284CC;
-        --chat--color-secondary: #20b69e;
-        
-        /* Cores base */
-        --chat--color-white: #ffffff;
-        --chat--color-light: #f2f4f8;
-        --chat--color-dark: #283AEB;
+    <style>
+        /* O bloco :root define variáveis CSS que controlam cores, tamanhos e estilo do chat. */
+        :root {
+            /* Cores Primárias e Secundárias do Chat */
+            --chat--color-primary: #003EF0;
+            --chat--color-primary-shade-50: #6284CC;
+            --chat--color-secondary: #20b69e;
+            
+            /* Cores base */
+            --chat--color-white: #ffffff;
+            --chat--color-light: #f2f4f8;
+            --chat--color-dark: #283AEB;
 
-        /* Dimensões da Janela do Chat (quando aberta) */
-        --chat--window--width: 450px;
-        --chat--window--height: 600px;
-        --chat--border-radius: 0.5rem;
-        --chat--spacing: 1rem;
+            /* Dimensões da Janela do Chat (quando aberta) */
+            --chat--window--width: 450px;
+            --chat--window--height: 600px;
+            --chat--border-radius: 0.5rem;
+            --chat--spacing: 1rem;
 
-        /* Estilo do Cabeçalho da Janela do Chat */
-        --chat--header--background: var(--chat--color-dark);
-        --chat--header--color: var(--chat--color-white);
-        
-        /* 💡 Insira AQUI a URL do seu Ícone/Avatar para o Cabeçalho */
-        --chat--header--icon: url('https://i.postimg.cc/rwRJWxjB/chat_ia_1.png');
+            /* Estilo do Cabeçalho da Janela do Chat */
+            --chat--header--background: var(--chat--color-dark);
+            --chat--header--color: var(--chat--color-white);
+            
+            /* ✅ URL da Imagem/Avatar para o Cabeçalho */
+            --chat--header--icon: url('https://i.postimg.cc/rwRJWxjB/chat_ia_1.png');
 
-        /* Estilo do Botão Flutuante (Toggle) */
-        --chat--toggle--background: var(--chat--color-primary);
-        --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
-        --chat--toggle--active--background: #003EF0;
-        --chat--toggle--color: var(--chat--color-white);
-        --chat--toggle--size: 64px;
-    }
-
-    /* Estilização para formatar o título e subtítulo verticalmente no cabeçalho */
-    .n8n-chat-header-title {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 2px;
-    }
-
-    .n8n-chat-header-title > h1 {
-        font-size: 1.15rem;
-        font-weight: 700;
-        margin: 0;
-        line-height: 1.2;
-    }
-
-    .n8n-chat-header-title > p {
-        font-size: 0.85rem;
-        font-weight: 400;
-        margin: 0;
-        opacity: 0.8;
-    }
-        
-</style>
-
-<script type="module">
-    /* Importa a função createChat do CDN do pacote oficial @n8n/chat */
-    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-    /* Inicializa o widget de chat com suas configurações customizadas */
-    createChat({
-        /* URL do webhook que dispara o workflow no seu servidor n8n */
-        webhookUrl: 'https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat',
-        
-        /* Define o modo de exibição como botão flutuante */
-        mode: 'floating',
-        floating: true, 
-        
-        /* Desativa a tela de "Boas-vindas" padrão */
-        showWelcomeScreen: false,
-        
-        /* Chaves para gerenciamento de estado da sessão */
-        chatInputKey: 'chatInput',
-        chatSessionKey: 'sessionId',
-        metadata: {},
-        defaultLanguage: 'en', 
-        
-        /* Mensagens que aparecem na tela de chat assim que é aberta */
-        initialMessages: [
-            'Olá, sou o **LMS Next IA**, seu especialista em EAD!',
-            'Como posso te ajudar hoje? Se precisar de ajuda com acesso ou informações de conta, me informe seu **nome e email**.'
-        ],
-        
-        /* Configurações de Internacionalização (Textos) */
-        i18n: {
-            'pt-BR': {
-                title: 'Especialista LMS Next! 🤖',
-                subtitle: "Pergunte o que quiser sobre o LMS Next!",
-                footer: '',
-                getStarted: 'Nova Conversa',
-                inputPlaceholder: 'Digite sua pergunta..',
-            },
-            en: {
-                title: 'Especialista LMS Next! 🤖',
-                subtitle: "Pergunte o que quiser sobre o LMS Next!",
-                footer: '',
-                getStarted: 'New Conversation',
-                inputPlaceholder: 'Digite sua pergunta..',
-            }  
-        },
-        
-        /* Desativa o streaming (resposta em tempo real) */
-        enableStreaming: false 
-    });
-
-    /* Script de garantia para adicionar uma classe customizada ao cabeçalho (Opcional) */
-    const checkHeader = setInterval(() => {
-        const header = document.querySelector(".n8n-chat-header");
-
-        if (header) {
-            header.classList.add("custom-chat-header");
-            clearInterval(checkHeader);
+            /* Estilo do Botão Flutuante (Toggle) */
+            --chat--toggle--background: var(--chat--color-primary);
+            --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
+            --chat--toggle--active--background: #003EF0;
+            --chat--toggle--color: var(--chat--color-white);
+            --chat--toggle--size: 64px;
         }
-    }, 300)
 
-</script>
-<!-- N8N FIM -->    
-    
-<script>
-   var listCompetency = null;
-            listCompetency= document.querySelector("select[data-field=ruleoutcome]");
+        /* Estilização para formatar o título e subtítulo verticalmente no cabeçalho */
+        .n8n-chat-header-title {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2px;
+        }
+
+        .n8n-chat-header-title > h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .n8n-chat-header-title > p {
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin: 0;
+            opacity: 0.8;
+        }
+        
+        /* ❗ CORREÇÃO: Força a exibição e o uso da imagem no elemento do ícone */
+        .n8n-chat-header-icon {
+            /* Força a visibilidade e o tamanho do container do ícone */
+            display: block !important;
+            width: 32px !important;
+            height: 32px !important;
+            margin-right: 10px !important; /* Espaçamento à direita do ícone */
+
+            /* Aplica a imagem de fundo diretamente, garantindo a prioridade */
+            background-image: var(--chat--header--icon) !important;
+            background-size: contain !important; /* Ajusta a imagem para caber */
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+        }
             
-            if(listCompetency == null){
-            listCompetency= document.querySelector("#id_competency_rule");
-            }
+    </style>
+
+    <script type="module">
+        /* Importa a função createChat do CDN do pacote oficial @n8n/chat */
+        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+
+        /* Inicializa o widget de chat com suas configurações customizadas */
+        createChat({
+            /* URL do webhook que dispara o workflow no seu servidor n8n */
+            webhookUrl: 'https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat',
             
-            if(listCompetency != null){
-            //listCompetency.innerHTML = "";
-            //listCompetency.innerHTML = "<option value='3' selected>Concluir a competência</option>";
+            /* Define o modo de exibição como botão flutuante */
+            mode: 'floating',
+            floating: true, 
+            
+            /* Desativa a tela de "Boas-vindas" padrão */
+            showWelcomeScreen: false,
+            
+            /* Chaves para gerenciamento de estado da sessão */
+            chatInputKey: 'chatInput',
+            chatSessionKey: 'sessionId',
+            metadata: {},
+            defaultLanguage: 'en', 
+            
+            /* Mensagens que aparecem na tela de chat assim que é aberta */
+            initialMessages: [
+                'Olá, sou o **LMS Next IA**, seu especialista em EAD!',
+                'Como posso te ajudar hoje? Se precisar de ajuda com acesso ou informações de conta, me informe seu **nome e email**.'
+            ],
+            
+            /* Configurações de Internacionalização (Textos) */
+            i18n: {
+                'pt-BR': {
+                    title: 'Especialista LMS Next! 🤖',
+                    subtitle: "Pergunte o que quiser sobre o LMS Next!",
+                    footer: '',
+                    getStarted: 'Nova Conversa',
+                    inputPlaceholder: 'Digite sua pergunta..',
+                },
+                en: {
+                    title: 'Especialista LMS Next! 🤖',
+                    subtitle: "Pergunte o que quiser sobre o LMS Next!",
+                    footer: '',
+                    getStarted: 'New Conversation',
+                    inputPlaceholder: 'Type your question..',
+                }  
+            },
+            
+            /* Desativa o streaming (resposta em tempo real) */
+            enableStreaming: false 
+        });
+
+        /* Script de garantia para adicionar uma classe customizada ao cabeçalho (Opcional) */
+        const checkHeader = setInterval(() => {
+            const header = document.querySelector(".n8n-chat-header");
+
+            if (header) {
+                header.classList.add("custom-chat-header");
+                clearInterval(checkHeader);
             }
+        }, 300)
+
+    </script>
+    <script>
+    /* Este bloco de script parece ser para manipulação de elementos LMS/Moodle específicos
+       e foi mantido inalterado, pois não interfere no chat. */
+    var listCompetency = null;
+    listCompetency = document.querySelector("select[data-field=ruleoutcome]");
+            
+    if(listCompetency == null){
+    listCompetency = document.querySelector("#id_competency_rule");
+    }
+            
+    if(listCompetency != null){
+    //listCompetency.innerHTML = "";
+    //listCompetency.innerHTML = "<option value='3' selected>Concluir a competência</option>";
+    }
 </script>
 
-    <!-- Scripts personalizados -->
     <script src="scrips.js"></script>
 </body>
 </html>
