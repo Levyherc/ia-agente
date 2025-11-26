@@ -30,147 +30,421 @@
         </footer>
     </div>
     
+
     <style>
-        /* Variáveis de Cores e Tamanhos */
-        :root {
-            --chat--color-primary: #003EF0;
-            --chat--color-primary-shade-50: #6284CC;
-            --chat--color-secondary: #20b69e;
-            
-            --chat--color-white: #ffffff;
-            --chat--color-light: #f2f4f8;
-            --chat--color-dark: #283AEB;
+    /* ---------------------------------------------------------------------- */
+    /* 1. VARIÁVEIS E ESTILIZAÇÃO GLOBAL (Baseado no seu código)              */
+    /* ---------------------------------------------------------------------- */
+    :root {
+        /* Cores */
+        --chat-color-primary: #003EF0;
+        --chat-color-secondary: #20b69e;
+        --chat-color-text: #333333;
+        --chat-color-bg: #f2f4f8; /* Fundo das mensagens do bot */
+        --chat-color-white: #ffffff;
 
-            --chat--window--width: 450px;
-            --chat--window--height: 600px;
-            --chat--border-radius: 0.5rem;
-            --chat--spacing: 1rem;
+        /* Dimensões */
+        --chat-window-width: 350px;
+        --chat-window-height: 500px;
+        --chat-toggle-size: 64px;
 
-            --chat--header--background: var(--chat--color-dark);
-            --chat--header--color: var(--chat--color-white);
-            
-            /* ✅ URL da Imagem/Avatar para o Cabeçalho */
-            --chat--header--icon: url('https://i.postimg.cc/rwRJWxjB/chat_ia_1.png');
+        /* ✅ URL da Imagem/Avatar para o Cabeçalho */
+        --chat-header-icon: url('https://i.postimg.cc/rwRJWxjB/chat_ia_1.png');
+    }
 
-            --chat--toggle--background: var(--chat--color-primary);
-            --chat--toggle--hover--background: var(--chat--color-primary-shade-50);
-            --chat--toggle--active--background: #003EF0;
-            --chat--toggle--color: var(--chat--color-white);
-            --chat--toggle--size: 64px;
-        }
+    /* ---------------------------------------------------------------------- */
+    /* 2. ESTRUTURA E POSICIONAMENTO DO WIDGET                                */
+    /* ---------------------------------------------------------------------- */
+    #custom-chat-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        font-family: Arial, sans-serif;
+    }
 
-        /* Estilização para formatar o título e subtítulo verticalmente no cabeçalho */
-        .n8n-chat-header-title {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 2px;
-        }
+    /* Botão de Abrir/Fechar (Toggle) */
+    #chat-toggle-button {
+        width: var(--chat-toggle-size);
+        height: var(--chat-toggle-size);
+        background-color: var(--chat-color-primary);
+        color: var(--chat-color-white);
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s, background-color 0.2s;
+    }
+    #chat-toggle-button:hover {
+        background-color: var(--chat-color-secondary);
+    }
+    
+    /* Ícone (Mantenha o padrão, ou substitua por SVG/Imagem) */
+    #chat-toggle-button .icon {
+        line-height: 1; /* Alinhamento vertical do emoji */
+    }
 
-        .n8n-chat-header-title > h1 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin: 0;
-            line-height: 1.2;
-        }
+    /* Janela de Chat */
+    #chat-window {
+        width: var(--chat-window-width);
+        height: var(--chat-window-height);
+        background-color: var(--chat-color-white);
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        margin-bottom: 10px;
+        transform-origin: bottom right;
+        opacity: 0;
+        transform: scale(0.1);
+        transition: all 0.3s ease-in-out;
+        pointer-events: none; /* Desabilita interações quando fechado */
+    }
+    #chat-window.open {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+    }
 
-        .n8n-chat-header-title > p {
-            font-size: 0.85rem;
-            font-weight: 400;
-            margin: 0;
-            opacity: 0.8;
-        }
+    /* ---------------------------------------------------------------------- */
+    /* 3. COMPONENTES INTERNOS                                                */
+    /* ---------------------------------------------------------------------- */
+
+    /* Cabeçalho */
+    .chat-header {
+        background-color: var(--chat-color-primary);
+        color: var(--chat-color-white);
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+    }
+    .chat-header-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-image: var(--chat-header-icon);
+        background-size: cover;
+        background-position: center;
+        flex-shrink: 0;
+    }
+    .chat-header-titles h1 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.2;
+    }
+    .chat-header-titles p {
+        font-size: 0.85rem;
+        font-weight: 400;
+        margin: 0;
+        opacity: 0.8;
+    }
+
+    /* Área de Mensagens */
+    #chat-messages {
+        flex-grow: 1;
+        padding: 15px;
+        overflow-y: auto;
+        background-color: var(--chat-color-white);
+    }
+    #chat-messages::-webkit-scrollbar {
+        width: 8px;
+    }
+    #chat-messages::-webkit-scrollbar-thumb {
+        background-color: #ccc;
+        border-radius: 10px;
+    }
+
+    /* Estilização dos Balões */
+    .chat-message {
+        display: flex;
+        margin-bottom: 10px;
+    }
+    .chat-message-text {
+        padding: 10px 15px;
+        border-radius: 18px;
+        max-width: 80%;
+        word-wrap: break-word;
+    }
+
+    /* Mensagem do Usuário */
+    .chat-message.user {
+        justify-content: flex-end;
+    }
+    .chat-message.user .chat-message-text {
+        background-color: var(--chat-color-secondary);
+        color: var(--chat-color-white);
+        border-bottom-right-radius: 4px; /* Ponta do balão */
+    }
+
+    /* Mensagem do Bot */
+    .chat-message.bot {
+        justify-content: flex-start;
+    }
+    .chat-message.bot .chat-message-text {
+        background-color: var(--chat-color-bg);
+        color: var(--chat-color-text);
+        border-bottom-left-radius: 4px; /* Ponta do balão */
+    }
+    .chat-message.bot strong {
+        font-weight: bold; /* Para o texto em negrito (markdown) */
+    }
+    
+    /* Loading (digitando) */
+    .loading-dots {
+        display: inline-block;
+        background-color: var(--chat-color-bg);
+        padding: 10px 15px;
+        border-radius: 18px;
+        border-bottom-left-radius: 4px;
+        color: var(--chat-color-text);
+    }
+    .loading-dots span {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        background-color: var(--chat-color-text);
+        border-radius: 50%;
+        margin: 0 2px;
+        animation: loading 1s infinite;
+    }
+    .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes loading {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 1; }
+    }
+
+    /* Área de Input */
+    .chat-input-area {
+        padding: 10px 15px;
+        border-top: 1px solid #eee;
+        display: flex;
+        gap: 10px;
+    }
+    #chat-input {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        font-size: 14px;
+        outline: none;
+    }
+    #send-button {
+        background-color: var(--chat-color-primary);
+        color: var(--chat-color-white);
+        border: none;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+        flex-shrink: 0;
+    }
+    #send-button:hover {
+        background-color: var(--chat-color-secondary);
+    }
+</style>
+
+<div id="custom-chat-container">
+    <div id="chat-window">
+        <div class="chat-header" id="chat-header">
+            <div class="chat-header-avatar"></div>
+            <div class="chat-header-titles">
+                <h1>Especialista LMS Next! 🤖</h1>
+                <p>Pergunte o que quiser sobre o LMS Next!</p>
+            </div>
+        </div>
+
+        <div id="chat-messages">
+            </div>
+
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Digite sua pergunta..." />
+            <button id="send-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 15 2 11 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <button id="chat-toggle-button">
+        <span class="icon">💬</span>
+    </button>
+</div>
+
+<script>
+    // ----------------------------------------------------------------------
+    // 2. CONFIGURAÇÃO E LÓGICA JAVASCRIPT
+    // ----------------------------------------------------------------------
+    
+    // ✅ URL DO SEU WEBHOOK N8N (DO CÓDIGO FORNECIDO)
+    const WEBHOOK_URL = 'https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat';
+    
+    // Variáveis de Elementos
+    const chatContainer = document.getElementById('custom-chat-container');
+    const chatWindow = document.getElementById('chat-window');
+    const chatToggle = document.getElementById('chat-toggle-button');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const sendButton = document.getElementById('send-button');
+    const chatHeader = document.getElementById('chat-header');
+
+    let isChatOpen = false;
+    let isWaitingForResponse = false;
+    
+    // Simula uma ID de sessão (necessário para o n8n/Gemini)
+    const sessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+
+    // --------------------------------------------------
+    // FUNÇÕES DE EXIBIÇÃO
+    // --------------------------------------------------
+
+    function appendMessage(sender, text) {
+        // Converte o texto simples para HTML (suporta negrito simples com **texto**)
+        let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
         
-        /* ❗ SOLUÇÃO FINAL: Força a exibição da imagem, removendo conteúdos concorrentes */
-        .n8n-chat-header-icon {
-            display: block !important;
-            width: 32px !important;
-            height: 32px !important;
-            margin-right: 10px !important;
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('chat-message', sender);
+        messageElement.innerHTML = `<div class="chat-message-text">${formattedText}</div>`;
+        
+        chatMessages.appendChild(messageElement);
+        scrollToBottom();
+    }
 
-            /* Sobrescreve e remove qualquer conteúdo padrão ou SVG */
-            content: '' !important;
-            background-image: none !important;
+    function scrollToBottom() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
 
-            /* Aplica sua imagem de fundo com a mais alta prioridade */
-            background-image: var(--chat--header--icon) !important;
-            background-size: cover !important; 
-            background-repeat: no-repeat !important;
-            background-position: center !important;
-            
-            /* Deixa o ícone redondo */
-            border-radius: 50% !important; 
+    function showLoading() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = 'loading-indicator';
+        loadingDiv.classList.add('chat-message', 'bot');
+        loadingDiv.innerHTML = `<div class="loading-dots"><span></span><span></span><span></span></div>`;
+        chatMessages.appendChild(loadingDiv);
+        scrollToBottom();
+    }
+
+    function removeLoading() {
+        const loadingDiv = document.getElementById('loading-indicator');
+        if (loadingDiv) {
+            loadingDiv.remove();
         }
-            
-    </style>
+    }
 
-    <script type="module">
-        /* Importa a função createChat do CDN do pacote oficial @n8n/chat */
-        import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    function sendInitialMessages() {
+        // Mensagens iniciais do seu código
+        setTimeout(() => {
+            appendMessage('bot', 'Olá, sou o **LMS Next IA**, seu especialista em EAD!');
+            setTimeout(() => {
+                appendMessage('bot', 'Como posso te ajudar hoje? Se precisar de ajuda com acesso ou informações de conta, me informe seu **nome e email**.');
+            }, 500);
+        }, 300);
+    }
 
-        /* Inicializa o widget de chat com suas configurações customizadas */
-        createChat({
-            webhookUrl: 'https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat',
-            mode: 'floating',
-            floating: true, 
-            showWelcomeScreen: false,
-            chatInputKey: 'chatInput',
-            chatSessionKey: 'sessionId',
-            metadata: {},
-            defaultLanguage: 'en', 
-            
-            initialMessages: [
-                'Olá, sou o **LMS Next IA**, seu especialista em EAD!',
-                'Como posso te ajudar hoje? Se precisar de ajuda com acesso ou informações de conta, me informe seu **nome e email**.'
-            ],
-            
-            /* Configurações de Internacionalização (Textos) */
-            i18n: {
-                'pt-BR': {
-                    title: 'Especialista LMS Next! 🤖',
-                    subtitle: "Pergunte o que quiser sobre o LMS Next!",
-                    footer: '',
-                    getStarted: 'Nova Conversa',
-                    inputPlaceholder: 'Digite sua pergunta..',
-                },
-                en: {
-                    title: 'Especialista LMS Next! 🤖',
-                    subtitle: "Pergunte o que quiser sobre o LMS Next!",
-                    footer: '',
-                    getStarted: 'New Conversation',
-                    inputPlaceholder: 'Digite sua pergunta..',
-                }  
-            },
-            
-            enableStreaming: false 
-        });
+    // --------------------------------------------------
+    // LÓGICA DE ABERTURA/FECHAMENTO
+    // --------------------------------------------------
 
-        /* Script de garantia para adicionar uma classe customizada ao cabeçalho (Opcional) */
-        const checkHeader = setInterval(() => {
-            const header = document.querySelector(".n8n-chat-header");
+    function toggleChat() {
+        isChatOpen = !isChatOpen;
+        chatWindow.classList.toggle('open', isChatOpen);
+        
+        // Altera o ícone do botão
+        chatToggle.innerHTML = isChatOpen ? '<span class="icon">✖️</span>' : '<span class="icon">💬</span>';
 
-            if (header) {
-                header.classList.add("custom-chat-header");
-                clearInterval(checkHeader);
+        if (isChatOpen) {
+            scrollToBottom();
+            // Envia a mensagem de boas-vindas na primeira abertura
+            if (chatMessages.children.length === 0) {
+                sendInitialMessages();
             }
-        }, 300)
+        }
+    }
 
-    </script>
-    <script>
-    /* Script de manipulação de elementos LMS/Moodle (mantido) */
-    var listCompetency = null;
-    listCompetency = document.querySelector("select[data-field=ruleoutcome]");
+    // --------------------------------------------------
+    // LÓGICA DE COMUNICAÇÃO (N8N)
+    // --------------------------------------------------
+
+    async function sendMessage() {
+        const userInput = chatInput.value.trim();
+        
+        if (!userInput || isWaitingForResponse) return;
+
+        // 1. Enviar mensagem do usuário
+        appendMessage('user', userInput);
+        chatInput.value = '';
+        
+        // 2. Mostrar indicador de digitação (Loading)
+        isWaitingForResponse = true;
+        showLoading();
+
+        try {
+            // Estrutura do body esperada pelo seu Webhook n8n
+            const payload = {
+                chatInput: userInput,
+                sessionId: sessionId,
+                metadata: {
+                    user_language: navigator.language || 'pt-BR'
+                }
+            };
+
+            const response = await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
             
-    if(listCompetency == null){
-    listCompetency = document.querySelector("#id_competency_rule");
-    }
+            // O n8n geralmente retorna a resposta do bot em um campo 'response' ou 'message'
+            // Ajuste 'response.message' se o seu n8n retornar um nome de campo diferente
+            const botResponse = data.response || data.message || "Desculpe, houve um erro ao processar sua solicitação.";
             
-    if(listCompetency != null){
-    //listCompetency.innerHTML = "";
-    //listCompetency.innerHTML = "<option value='3' selected>Concluir a competência</option>";
+            // 3. Exibir resposta do bot
+            removeLoading();
+            appendMessage('bot', botResponse);
+
+        } catch (error) {
+            console.error('Erro ao conectar com o n8n:', error);
+            removeLoading();
+            appendMessage('bot', 'Ops! Tivemos um problema de conexão. Tente novamente mais tarde.');
+        } finally {
+            isWaitingForResponse = false;
+        }
     }
+
+    // --------------------------------------------------
+    // EVENT LISTENERS
+    // --------------------------------------------------
+
+    // Abrir/Fechar
+    chatToggle.addEventListener('click', toggleChat);
+    chatHeader.addEventListener('click', toggleChat); // Fechar ao clicar no cabeçalho
+
+    // Envio de mensagem
+    sendButton.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
 </script>
 
     <script src="scrips.js"></script>
