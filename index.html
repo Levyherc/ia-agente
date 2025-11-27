@@ -29,318 +29,500 @@
             <p>&copy; LMS Next IA. Powered by Artificial Intelligence - Em teste (desenvolvendo).</p>
         </footer>
     </div>
-    
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    .chat-widget-container {
-      position: fixed;
-      bottom: 24px; right: 24px;
-      z-index: 9999;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    
-    .chat-button {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background-color: hsl(221 83% 53%);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s;
-    }
-    
-    .chat-button:hover {
-      transform: scale(1.1);
-    }
-    
-    .chat-button svg {
-      width: 24px;
-      height: 24px;
-      color: white;
-    }
-    
-    .chat-window {
-      width: 384px;
-      height: 600px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.2);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    
-    .chat-window.hidden {
-      display: none;
-    }
-    
-    .chat-header {
-      background-color: hsl(221 83% 53%);
-      color: white;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    
-    .chat-header-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .chat-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: white;
-      padding: 4px;
-    }
-    
-    .chat-bot-name {
-      font-weight: 600;
-      font-size: 14px;
-    }
-    
-    .chat-status {
-      font-size: 12px;
-      opacity: 0.9;
-    }
-    
-    .chat-close {
-      background: transparent;
-      border: none;
-      color: white;
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 4px;
-    }
-    
-    .chat-close:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    
-    .message {
-      max-width: 80%;
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-size: 14px;
-    }
-    
-    .message.bot {
-      background: #f5f5f5;
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-    }
-    
-    .message.user {
-      background: hsl(221 83% 53%);
-      color: white;
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-    }
-    
-    .chat-input-container {
-      padding: 16px;
-      border-top: 1px solid #e5e5e5;
-      display: flex;
-      gap: 8px;
-    }
-    
-    .chat-input {
-      flex: 1;
-      padding: 12px 16px;
-      border: 1px solid #e5e5e5;
-      border-radius: 24px;
-      outline: none;
-      font-size: 14px;
-    }
-    
-    .chat-send {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: hsl(221 83% 53%);
-      border: none;
-      color: white;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .loading-dots {
-      display: flex;
-      gap: 4px;
-    }
-    
-    .loading-dot {
-      width: 8px;
-      height: 8px;
-      background: #999;
-      border-radius: 50%;
-      animation: bounce 1.4s infinite ease-in-out;
-    }
-    
-    .loading-dot:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    
-    .loading-dot:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-    
-    @keyframes bounce {
-      0%, 60%, 100% { transform: translateY(0); }
-      30% { transform: translateY(-10px); }
-    }
-  </style>
+
+  <style>
+    :root {
+      --chat-primary: 222.2 47.4% 11.2%;
+      --chat-message-bot: 240 10% 96%;
+      --shadow-chat: 0 10px 40px -10px rgba(0, 0, 0, 0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #chat-widget-container {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 9999;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    #chat-widget-container.dragging {
+      cursor: grabbing !important;
+    }
+
+    .chat-button {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: hsl(222.2 47.4% 11.2%);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .chat-button:hover {
+      transform: scale(1.1);
+    }
+
+    .chat-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .chat-button svg {
+      width: 24px;
+      height: 24px;
+      color: white;
+    }
+
+    .chat-window {
+      background: white;
+      border-radius: 16px;
+      box-shadow: var(--shadow-chat);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      width: 384px;
+      height: 600px;
+      transition: all 0.3s;
+    }
+
+    .chat-window.minimized {
+      height: 64px;
+      width: 320px;
+    }
+
+    .chat-header {
+      background: hsl(222.2 47.4% 11.2%);
+      color: white;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      cursor: grab;
+    }
+
+    .chat-header.dragging {
+      cursor: grabbing !important;
+    }
+
+    .chat-header-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-header-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      padding: 4px;
+    }
+
+    .chat-header-text h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .chat-header-text p {
+      font-size: 12px;
+      opacity: 0.9;
+      margin: 0;
+    }
+
+    .chat-header-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-header-button {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .chat-header-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .chat-window.minimized .chat-messages,
+    .chat-window.minimized .chat-input-container {
+      display: none;
+    }
+
+    .message {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .message.user {
+      flex-direction: row-reverse;
+    }
+
+    .message-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .message-content {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .message.bot .message-content {
+      background: hsl(var(--chat-message-bot));
+      border-bottom-left-radius: 4px;
+      color: #000;
+    }
+
+    .message.user .message-content {
+      background: hsl(222.2 47.4% 11.2%);
+      border-bottom-right-radius: 4px;
+      color: white;
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 8px;
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #666;
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+      0%, 60%, 100% {
+        transform: translateY(0);
+      }
+      30% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .chat-input-container {
+      padding: 16px;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      gap: 8px;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      font-size: 14px;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .chat-input:focus {
+      border-color: hsl(222.2 47.4% 11.2%);
+    }
+
+    .send-button {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: hsl(222.2 47.4% 11.2%);
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+
+    .send-button:hover {
+      opacity: 0.9;
+    }
+
+    .send-button svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-  <div class="chat-widget-container">
-    <button class="chat-button" id="chatButton" onclick="toggleChat()">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-      </svg>
-    </button>
-    
-    <div class="chat-window hidden" id="chatWindow">
-      <div class="chat-header">
-        <div class="chat-header-info">
-          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=assistant" alt="AI Assistant" class="chat-avatar">
-          <div>
-            <div class="chat-bot-name">AI Assistant</div>
-            <div class="chat-status">Online</div>
-          </div>
-        </div>
-        <button class="chat-close" onclick="toggleChat()">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
-      
-      <div class="chat-messages" id="messages">
-        <div class="message bot">Olá! Como posso ajudar você hoje?</div>
-      </div>
-      
-      <div class="chat-input-container">
-        <input type="text" class="chat-input" id="messageInput" placeholder="Digite sua mensagem..." onkeypress="handleKeyPress(event)">
-        <button class="chat-send" onclick="sendMessage()">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 2L9 11M18 2L12 18L9 11M18 2L2 8L9 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
+  <div id="chat-widget-container">
+    <button class="chat-button" id="chat-toggle">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+           </svg>
+    </button>
 
-  <script>
-    let isOpen = false;
-    
-    function toggleChat() {
-      isOpen = !isOpen;
-      const button = document.getElementById('chatButton');
-      const window = document.getElementById('chatWindow');
-      
-      if (isOpen) {
-        button.style.display = 'none';
-        window.classList.remove('hidden');
-      } else {
-        button.style.display = 'flex';
-        window.classList.add('hidden');
-      }
-    }
-    
-    function handleKeyPress(event) {
-      if (event.key === 'Enter') {
-        sendMessage();
-      }
-    }
-    
-    function addMessage(text, sender) {
-      const messagesDiv = document.getElementById('messages');
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `message ${sender}`;
-      messageDiv.textContent = text;
-      messagesDiv.appendChild(messageDiv);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-    
-    function showLoading() {
-      const messagesDiv = document.getElementById('messages');
-      const loadingDiv = document.createElement('div');
-      loadingDiv.className = 'message bot';
-      loadingDiv.id = 'loading';
-      loadingDiv.innerHTML = '<div class="loading-dots"><div class="loading-dot"></div><div class="loading-dot"></div><div class="loading-dot"></div></div>';
-      messagesDiv.appendChild(loadingDiv);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-    
-    function hideLoading() {
-      const loading = document.getElementById('loading');
-      if (loading) {
-        loading.remove();
-      }
-    }
-    
-    async function sendMessage() {
-      const input = document.getElementById('messageInput');
-      const message = input.value.trim();
-      
-      if (!message) return;
-      
-      addMessage(message, 'user');
-      input.value = '';
-      
-      showLoading();
-      
-      // Send to n8n webhook
-      try {
-        
-        await fetch('https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          mode: 'no-cors',
-          body: JSON.stringify({
-            message: message,
-            timestamp: new Date().toISOString(),
-            session_id: 'session_' + Date.now()
-          })
-        });
-        
-        
-        setTimeout(() => {
-          hideLoading();
-          addMessage('Mensagem recebida! Configure o webhook do n8n para receber respostas reais.', 'bot');
-        }, 1000);
-      } catch (error) {
-        hideLoading();
-        addMessage('Erro ao enviar mensagem. Verifique sua conexão.', 'bot');
-      }
-    }
-  </script>
+    <div class="chat-window hidden" id="chat-window">
+      <div class="chat-header" id="chat-header">
+        <div class="chat-header-info">
+          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=assistant" alt="AI Assistant" class="chat-header-avatar" />
+          <div class="chat-header-text">
+            <h3>AI Assistant</h3>
+            <p>Online</p>
+          </div>
+        </div>
+        <div class="chat-header-buttons">
+          <button class="chat-header-button" id="minimize-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="4 14 10 14 10 20"></polyline>
+              <polyline points="20 10 14 10 14 4"></polyline>
+              <line x1="14" y1="10" x2="21" y2="3"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+          </button>
+          <button class="chat-header-button" id="close-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
 
+      <div class="chat-messages" id="chat-messages">
+        <div class="message bot">
+          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=assistant" alt="Bot" class="message-avatar" />
+          <div class="message-content">Olá! Como posso ajudar você hoje?</div>
+        </div>
+      </div>
+
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" id="chat-input" placeholder="Digite sua mensagem..." />
+        <button class="send-button" id="send-button">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatWindow = document.getElementById('chat-window');
+    const closeButton = document.getElementById('close-button');
+    const minimizeButton = document.getElementById('minimize-button');
+    const sendButton = document.getElementById('send-button');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatHeader = document.getElementById('chat-header');
+    const container = document.getElementById('chat-widget-container');
+
+    let isMinimized = false;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let containerX = 0;
+    let containerY = 0;
+    // Defina a URL do webhook do n8n (extraída do seu fluxo)
+    const WEBHOOK_URL = 'https://n8n.lmsnext.com.br/webhook/b1a55f68-a7f8-4e4e-896e-a1c6710f912a/chat';
+
+    chatToggle.addEventListener('click', () => {
+      chatToggle.classList.add('hidden');
+      chatWindow.classList.remove('hidden');
+    });
+
+    closeButton.addEventListener('click', () => {
+      chatWindow.classList.add('hidden');
+      chatToggle.classList.remove('hidden');
+    });
+
+    minimizeButton.addEventListener('click', () => {
+      isMinimized = !isMinimized;
+      if (isMinimized) {
+        chatWindow.classList.add('minimized');
+      } else {
+        chatWindow.classList.remove('minimized');
+      }
+    });
+
+    
+    chatHeader.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      const rect = container.getBoundingClientRect();
+      containerX = rect.left;
+      containerY = rect.top;
+      container.classList.add('dragging');
+      chatHeader.classList.add('dragging');
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      
+      const deltaX = e.clientX - dragStartX;
+      const deltaY = e.clientY - dragStartY;
+      
+      containerX += deltaX;
+      containerY += deltaY;
+      
+      container.style.left = containerX + 'px';
+      container.style.top = containerY + 'px';
+      container.style.right = 'auto';
+      container.style.bottom = 'auto';
+      
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      container.classList.remove('dragging');
+      chatHeader.classList.remove('dragging');
+    });
+    
+
+    // FUNÇÃO CORRIGIDA
+    async function sendMessage() {
+      const message = chatInput.value.trim();
+      if (!message) return;
+
+      // 1. Adicionar mensagem do usuário
+      const userMessageDiv = document.createElement('div');
+      userMessageDiv.className = 'message user';
+      userMessageDiv.innerHTML = `
+        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=user" alt="User" class="message-avatar" />
+        <div class="message-content">${message}</div>
+      `;
+      chatMessages.appendChild(userMessageDiv);
+      chatInput.value = '';
+
+      // 2. Mostrar indicador de digitação
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'message bot';
+      typingDiv.id = 'typing-indicator';
+      typingDiv.innerHTML = `
+        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=assistant" alt="Bot" class="message-avatar" />
+        <div class="message-content">
+          <div class="typing-indicator">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+        </div>
+      `;
+      chatMessages.appendChild(typingDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+
+      try {
+        // 3. Enviar para o n8n e AGUARDAR a resposta
+        const response = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: message,
+            timestamp: new Date().toISOString(),
+            session_id: 'demo-session'
+          })
+        });
+
+        // Lidar com erros de conexão HTTP
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        // 4. Processar a resposta JSON do n8n
+        const data = await response.json();
+        // Seu nó de webhook retorna o corpo como {"message": "..."}
+        const botResponseText = data.message || "Desculpe, não consegui obter uma resposta do assistente."; 
+
+        // 5. Remover indicador de digitação
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) {
+            indicator.remove();
+        }
+
+        // 6. Adicionar a resposta REAL do bot
+        const botMessageDiv = document.createElement('div');
+        botMessageDiv.className = 'message bot';
+        botMessageDiv.innerHTML = `
+          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=assistant" alt="Bot" class="message-avatar" />
+          <div class="message-content">${botResponseText}</div>
+        `;
+        chatMessages.appendChild(botMessageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      } catch (error) {
+        console.error('Erro ao comunicar com o n8n:', error);
+        // Em caso de erro, remove o indicador e mostra uma mensagem de erro
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) {
+            indicator.remove();
+        }
+        const errorMessageDiv = document.createElement('div');
+        errorMessageDiv.className = 'message bot';
+        errorMessageDiv.innerHTML = `
+          <img src="https://api.dicebear.com/7.x/bottts/svg?seed=assistant" alt="Bot" class="message-avatar" />
+          <div class="message-content">Ops! Ocorreu um problema ao tentar conectar com o serviço do n8n. Por favor, tente novamente.</div>
+        `;
+        chatMessages.appendChild(errorMessageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+    }
+
+    sendButton.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
 
     <script src="scrips.js"></script>
 </body>
