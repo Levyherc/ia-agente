@@ -37,7 +37,15 @@
       --shadow-chat: 0 10px 40px -10px rgba(0, 0, 0, 0.2);
     }
 
-    * {
+    /* CORREÇÃO DE ESCOPO: 
+       Este reset CSS agora se aplica APENAS aos elementos 
+       dentro do seu widget (#chat-widget-container), 
+       evitando desconfigurar o restante do seu site.
+    */
+    #chat-widget-container,
+    #chat-widget-container *,
+    #chat-widget-container *::before,
+    #chat-widget-container *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -429,7 +437,7 @@
     });
     
 
-    // FUNÇÃO CORRIGIDA
+    // FUNÇÃO CORRIGIDA (mantida da solução anterior para comunicação n8n)
     async function sendMessage() {
       const message = chatInput.value.trim();
       if (!message) return;
@@ -455,7 +463,7 @@
             <div class="typing-dot"></div>
             <div class="typing-dot"></div>
             <div class="typing-dot"></div>
-          </div>
+        </div>
         </div>
       `;
       chatMessages.appendChild(typingDiv);
@@ -523,7 +531,6 @@
       if (e.key === 'Enter') sendMessage();
     });
   </script>
-
     <script src="scrips.js"></script>
 </body>
 </html>
